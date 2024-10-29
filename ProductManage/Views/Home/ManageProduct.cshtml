@@ -1,0 +1,127 @@
+﻿@model IEnumerable<ProductManage.Models.Product>
+
+@{
+    ViewData["Title"] = "ManageProduct";
+}
+
+
+
+<h1>產品維護</h1>
+<form asp-action="ManageProduct" method="get">
+
+    <table>
+        <tr>
+            <td> <label for="productId">流水號:</label></td>
+            <td> <input type="text" id="productId" name="productId" /></td>
+        </tr>
+        <tr>
+            <td><label for="productName">名稱:</label></td>
+            <td><input type="text" id="productName" name="productName" /></td>
+        </tr>
+        <tr>
+            <td style="padding-top: 15px;">
+                <button type="submit" class="btn btn-success">查詢</button>
+            </td>
+        </tr>
+    </table>
+
+    
+        
+    
+   
+    <table class="table" style="margin-top:10px">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Color)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StandardCost)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Size)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Weight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedDate)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("編輯", "EditProduct", new { id = item.ProductId })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StandardCost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ListPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Weight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModifiedDate)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+<script>
+    function Query() {
+        var inputValue = {
+            productId: 680
+        };
+        $.ajax({
+            type: "POST",
+            url: "/Home/ApiTest",
+            data: JSON.stringify(inputValue),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+            },
+            error: function (xhr, status, error) {
+                alert('error');
+            }
+        });
+    }
+
+
+</script>
