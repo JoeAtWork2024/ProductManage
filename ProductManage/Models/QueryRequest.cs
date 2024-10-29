@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProductManage.Models
 {
@@ -8,7 +9,7 @@ namespace ProductManage.Models
         [DisplayName("流水號")]
         public int ProductId { get; set; }
 
-        [DisplayName("產品名稱")]
+        [DisplayName("產品名稱"), Required(ErrorMessage ="名稱為必填")]
         public string Name { get; set; }
 
         [DisplayName("產品號碼")]
@@ -19,10 +20,10 @@ namespace ProductManage.Models
         public string? Color { get; set; }
 
 
-        [DisplayName("原定價")]
+        [DisplayName("原定價"),Required(ErrorMessage = "價格為必填")]
         public decimal? StandardCost { get; set; }
 
-        [DisplayName("銷售價格")]
+        [DisplayName("銷售價格"), Required(ErrorMessage = "價格為必填")]
         public decimal? ListPrice { get; set; }
 
 

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using NLog;
 using NLog.Web;
+using System.Text;
 
 namespace ProductManage.Controllers
 {
@@ -94,16 +95,22 @@ namespace ProductManage.Controllers
                     var errors = ModelState.Values.SelectMany(v => v.Errors)
                                       .Select(e => e.ErrorMessage)
                                       .ToList();
-                    return Json(new { success = false, message = "儲存失敗-" + errors });
+                    StringBuilder msg = new StringBuilder();
+                    foreach(var error in errors)
+                    {
+                        msg.Append(error + ";");
+                    }
+                    _logger.LogError(msg.ToString());
+                    return Json(new { success = false, message = "輸入錯誤"});
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return Json(new { success = false, message = ex.Message });
+                return Json(new { success = false, message = "儲存錯誤-" +  ex.Message });
             }
 
-            return Json(new { success = true, message = "" });
+            return Json(new { success = true, message = "儲存成功" });
         }
 
         public IActionResult SaveSuccess()
